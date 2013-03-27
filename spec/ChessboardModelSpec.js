@@ -50,7 +50,7 @@ describe("ChessboardModel", function() {
     expect(model.hasQueensConflict()).toBe(true);
   });
 
-  it("should find back-slash-style conflicts", function() {
+  it("should find backward-slash-style conflicts", function() {
     model.setSimpleBoard([
       [false, true,  false, false],
       [false, false, true,  false],
