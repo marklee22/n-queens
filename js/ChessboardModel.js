@@ -90,16 +90,16 @@
 
     hasAnyRowConflict: function(){
       // todo
-      var i, j,
+      var x, y,
           found = false,
           n = this.get('n'),
           board = this.get('board');
 
       // Check all rows to make sure all values in the row are false
-      for(i = 0; i < n; i++) {
+      for(x = 0; x < n; x++) {
         found = false;
-        for(j = 0; j < n; j++) {
-          if(board[i][j].piece === true) {
+        for(y = 0; y < n; y++) {
+          if(board[x][y].piece === true) {
             if(found) return true;
             found = true;
           }
@@ -110,6 +110,18 @@
 
     hasRowConflictAt: function(r){
       // todo
+      var c,
+          n = this.get('n'),
+          board = this.get('board'),
+          found = false;
+
+      // Iterate through every column in the row
+      for(c = 0; c < n; c++) {
+        if(board[r][c].piece === true) {
+          if(found) return true;
+          found = true;
+        }
+      }
       return false;
     },
 
@@ -137,34 +149,18 @@
 
     hasColConflictAt: function(c){
       // todo
-      return false;
-    },
-
-    hasAnyUpLeftConflict: function(){
-      // todo
-      var slice,
-          z, x, y,
-          found = false,
+      var r,
           n = this.get('n'),
-          board = this.get('board');
-      
-      // Check all 'forward slash' rows for conflicts
-      for(slice = 0; slice < n * 2 - 1; ++slice) {
-        z = slice < n ? 0 : slice - n + 1;
-        found = false;
-        for(x = z; x <= slice - z; ++x) {
-          y = slice - x;
-          if(board[x][y].piece === true) {
-            if(found) return true;
-            found = true;
-          }
+          board = this.get('board'),
+          found = false;
+
+      // Iterate through every row in the column
+      for(r = 0; r < n; r++) {
+        if(board[r][c].piece === true) {
+          if(found) return true;
+          found = true;
         }
       }
-      return false;
-    },
-
-    hasUpLeftConflictAt: function(upLeftIndex){
-      // todo
       return false;
     },
 
@@ -191,10 +187,71 @@
       return false;
     },
 
-    hasUpRightConflictAt: function(upRightIndex){
+    hasUpRightConflictAt: function(r, c){
       // todo
+      var slice,
+          z, x, y,
+          found = false,
+          n = this.get('n'),
+          board = this.get('board');
+
+      // Check all 'forward slash' rows for conflicts
+      slice = c + r;
+      z = slice < n ? 0 : slice - n + 1;
+      for(x = z; x <= slice - z; x++) {
+        y = (n - 1) - (slice - x);
+        if(board[x][y].piece === true) {
+          if(found) return true;
+          found = true;
+        }
+      }
+      return false;
+    },
+
+    hasAnyUpLeftConflict: function(){
+      // todo
+      var slice,
+          z, x, y,
+          found = false,
+          n = this.get('n'),
+          board = this.get('board');
+      
+      // Check all 'forward slash' rows for conflicts
+      for(slice = 0; slice < n * 2 - 1; ++slice) {
+        z = slice < n ? 0 : slice - n + 1;
+        found = false;
+        for(x = z; x <= slice - z; ++x) {
+          y = slice - x;
+          if(board[x][y].piece === true) {
+            if(found) return true;
+            found = true;
+          }
+        }
+      }
+      return false;
+    },
+
+    hasUpLeftConflictAt: function(r, c){
+      // todo
+      var slice,
+          z, x, y,
+          found = false,
+          n = this.get('n'),
+          board = this.get('board');
+      
+      // Check all 'forward slash' rows for conflicts
+      slice = -(c - r - n +1);
+      z = slice < n ? 0 : slice - n + 1;
+      for(x = z; x <= slice - z; x++) {
+        y = slice - x;
+        if(board[x][y].piece === true) {
+          if(found) return true;
+          found = true;
+        }
+      }
       return false;
     }
+
   });
 
   this.ChessboardModel = ChessboardModel;

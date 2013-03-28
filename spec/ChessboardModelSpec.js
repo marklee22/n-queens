@@ -23,7 +23,7 @@ describe("ChessboardModel", function() {
   it("should find row conflicts", function() {
     model.setSimpleBoard([
       [false, false, false, false],
-      [true,  true,  false, false],
+      [true, true,  false, false],
       [false, false, false, false],
       [false, false, false, false]
     ]);
@@ -80,4 +80,64 @@ describe("ChessboardModel", function() {
     expect(model.hasQueensConflict()).toBe(true);
   });
 
+  describe("specific row", function() {
+    it("finds row conflicts", function() {
+      model.setSimpleBoard([
+        [true,  false, true, false],
+        [false, false, false, false],
+        [true,  true, false, false],
+        [false, false, false, true]
+      ]);
+      expect(model.hasRowConflictAt(0)).toBe(true);
+      expect(model.hasRowConflictAt(1)).toBe(false);
+      expect(model.hasRowConflictAt(2)).toBe(true);
+      expect(model.hasRowConflictAt(3)).toBe(false);
+    });
+
+    it("finds column conflicts", function() {
+      model.setSimpleBoard([
+        [true, false, true, false],
+        [true, false, false, true],
+        [false, false, false, false],
+        [false, true, true, false]
+      ]);
+      expect(model.hasColConflictAt(0)).toBe(true);
+      expect(model.hasColConflictAt(1)).toBe(false);
+      expect(model.hasColConflictAt(2)).toBe(true);
+      expect(model.hasColConflictAt(3)).toBe(false);
+    });
+  });
+
+  describe("specific index", function() {
+    it("finds up-left conflicts", function() {
+      model.setSimpleBoard([
+        [false, true,  false, false],
+        [false, false, true,  false],
+        [false, false, false, false],
+        [false, false, false, false]
+      ].reverse());
+
+      // All indices are inreversed [(n - x),(n - y)]
+      expect(model.hasUpLeftConflictAt(3,3)).toBe(false);
+      expect(model.hasUpLeftConflictAt(3,2)).toBe(true);
+      expect(model.hasUpLeftConflictAt(3,1)).toBe(false);
+      expect(model.hasUpLeftConflictAt(2,1)).toBe(true);
+      expect(model.hasAnyUpLeftConflict()).toBe(true);
+    });
+
+    it("finds up-right conflicts", function() {
+      model.setSimpleBoard([
+        [false, false, true,  false],
+        [false, false, false, false],
+        [true,  false, false, false],
+        [false, false, false, false]
+      ].reverse());
+
+      // All indices are inreversed [(n - x),(n - y)]
+      expect(model.hasUpRightConflictAt(3,3)).toBe(false);
+      expect(model.hasUpRightConflictAt(3,2)).toBe(false);
+      expect(model.hasUpRightConflictAt(3,1)).toBe(true);
+      expect(model.hasAnyUpRightConflict()).toBe(true);
+    });
+  });
 });
