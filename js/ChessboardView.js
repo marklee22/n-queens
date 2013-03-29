@@ -20,7 +20,7 @@
       this.$el.on('click', '.square', function(e){
         that.model.togglePiece($(this).data('row'), $(this).data('col'));
       });
-      this.model = new ChessboardModel({n: 8});
+      this.model = new ChessboardModel({n: 4});
       this.model.on('change', this.render.bind(this));
     },
 

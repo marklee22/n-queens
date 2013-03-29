@@ -141,3 +141,26 @@ describe("ChessboardModel", function() {
     });
   });
 });
+
+
+describe("nRooksSolver", function() {
+  var model, nRooks;
+
+  beforeEach(function() {
+    var n = 4;
+    nRooks = new solveNRooks(n);
+    model = new ChessboardModel({n:4});
+  });
+
+  it("returns a correct solution", function() {
+    var solution = [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true]
+    ];
+    model.setSimpleBoard(solution);
+    expect(nRooks).toEqual(solution);
+  });
+
+});
