@@ -164,3 +164,25 @@ describe("nRooksSolver", function() {
   });
 
 });
+
+describe("nQueensSolver", function() {
+  var model, nQueens;
+
+  beforeEach(function() {
+    var n = 4;
+    nQueens = new solveNQueens(n);
+    model = new ChessboardModel({n:4});
+  });
+
+  it("returns a correct solution", function() {
+    var solution = [
+      [true, false, false, false],
+      [false, false, true, false],
+      [false, false, false, false],
+      [false, true, false, false]
+    ];
+    model.setSimpleBoard(solution);
+    expect(nQueens).toEqual(solution);
+  });
+
+});

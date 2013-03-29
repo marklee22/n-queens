@@ -1,11 +1,11 @@
 var solveNRooks = function(n){
 
-  var solution = [
-    [false, false, false, false],
-    [false, false, false, false],
-    [false, false, false, false],
-    [false, false, false, true]
-  ];
+  // var solution = [
+  //   [false, false, false, false],
+  //   [false, false, false, false],
+  //   [false, false, false, false],
+  //   [false, false, false, true]
+  // ];
 
   // the above is a pre-baked solution for when n = 4.
   // Write code here that will find solutions for any n
