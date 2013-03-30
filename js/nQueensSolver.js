@@ -157,7 +157,7 @@ var solveNQueens = function(n){
       // Get the up left most number of the slice
       var startIndex = temp <= 0 ? Math.abs(temp) : temp * n;
       // console.log(i, sliceForwardSlash, startIndex);
-      counter = 0;
+      var counter = 0;
 
       // Calculate max range of spaces to iterate over
       var maxIterations = sliceForwardSlash < n ? sliceForwardSlash : Math.abs((n * 2 - 2) - sliceForwardSlash);
@@ -167,10 +167,6 @@ var solveNQueens = function(n){
         solution[startIndex + counter * (n + 1)] = false;
         counter++;
       }
-
-        // Since we marked the current spot as false, reset it back to true
-        solution[i] = true;
-
 
       // Reset the current board position to true
       solution[i] = true;
