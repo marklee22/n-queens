@@ -1,5 +1,8 @@
 var solveNQueens = function(n){
+
+  // Closure variable to track all possible solutions
   var solutions = [];
+
   /** Mark all entries in the current row to false **/
   var eliminateRow = function(board, index) {
     var currRowIndex = Math.floor(index / n) * n;
@@ -48,7 +51,6 @@ var solveNQueens = function(n){
 
     // Get the up left most number of the slice
     var startIndex = temp <= 0 ? Math.abs(temp) : temp * n;
-    // console.log(i, sliceForwardSlash, startIndex);
     var counter = 0;
 
     // Calculate max range of spaces to iterate over
@@ -79,9 +81,7 @@ var solveNQueens = function(n){
 
     // Return board if queen count reached
     if(count === n) {
-      console.log(count, board);
       solutions.push(board);
-      // return board;
       return;
     }
 
@@ -95,7 +95,6 @@ var solveNQueens = function(n){
     while(index < n * n) {
       if(board[index] === true) {
         var boardCopy = board.slice(0);
-        // debugger;
 
         // Remove all unavailable squares
         boardCopy = eliminateAllSquares(boardCopy, index);
@@ -103,11 +102,9 @@ var solveNQueens = function(n){
         // Have to copy count since it's shared across calls in this while loop
         var queenCount = count;
         var outputBoard = recursiveNQueens(boardCopy, index, ++queenCount);
-        // if(outputBoard) solutions.push(outputBoard);
       }
       index++;
     }
-    // return solutions;
   };
 
   /* Unflatten the array to a matrix **/
@@ -121,6 +118,10 @@ var solveNQueens = function(n){
     return matrix;
   };
 
+  /***************/
+  /**** MAIN ****/
+  /**************/
+
   // Flattened array
   var solution = new Array(n * n);
   var i;
@@ -129,17 +130,15 @@ var solveNQueens = function(n){
   };
 
   for(var i = 0; i < n; i++) {
-    // Remove all unavailable squares
     var boardCopy = solution.slice(0);
 
+    // Remove all unavailable squares
     boardCopy = eliminateAllSquares(boardCopy, i);
     var outputBoard = recursiveNQueens(boardCopy, i, 1);
-    // if(outputBoard) solutions.push(outputBoard);
   }
-  debugger;
-  solution = solutions[0];
 
-  solution = arrayToMatrix(solution);
+  // Render the first solution to the board
+  solution = arrayToMatrix(solutions[0]);
 
   // this line hooks into the visualizer
   if(window.chessboardView) window.chessboardView.model.setSimpleBoard(solution.reverse());

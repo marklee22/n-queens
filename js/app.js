@@ -4,5 +4,5 @@ $(function(){
 
   // note: you can switch this out for solveNQueens when you're ready!
   // solveNRooks(4);
-  solveNQueens(10);
+  solveNQueens(8);
 });
