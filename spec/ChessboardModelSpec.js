@@ -176,10 +176,10 @@ describe("nQueensSolver", function() {
 
   it("returns a correct solution", function() {
     var solution = [
+      [false, true, false, false],
+      [false, false, false, true],
       [true, false, false, false],
-      [false, false, true, false],
-      [false, false, false, false],
-      [false, true, false, false]
+      [false, false, true, false]
     ];
     model.setSimpleBoard(solution);
     expect(nQueens).toEqual(solution);
